@@ -1,0 +1,13 @@
+@import '../styles/variables.css';
+@import '../styles/base.css';
+@import '../styles/animations.css';
+@import '../styles/nav.css';
+@import '../styles/home.css';
+@import '../styles/work.css';
+@import '../styles/about.css';
+@import '../styles/contact.css';
+
+:root {
+  --font-sans: var(--font-inter), 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: var(--font-syne), 'Syne', 'Inter', sans-serif;
+}

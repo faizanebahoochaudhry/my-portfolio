@@ -1,0 +1,98 @@
+:root {
+  /* Surfaces */
+  --bg: #080c14;
+  --bg-alt: #0e1420;
+  --bg-surface: #141c2b;
+  --bg-dark: #04060c;
+
+  /* Text */
+  --text: #e6edf8;
+  --text-light: #f3f7ff;
+  --text-muted: #7a8ba6;
+  --text-muted-dark: #566478;
+  --text-rgb: 230, 237, 248;
+
+  /* Accent */
+  --accent: #5ee4d5;
+  --accent-rgb: 94, 228, 213;
+  --accent-soft-rgb: 150, 245, 235;
+  --accent-deep-rgb: 20, 110, 108;
+
+  --border: rgba(255, 255, 255, 0.07);
+  --border-dark: rgba(255, 255, 255, 0.04);
+
+  --glow: rgba(94, 228, 213, 0.06);
+  --glow-strong: rgba(94, 228, 213, 0.11);
+
+  /* Canvas effects: smoke + particles */
+  --effect-rgb: 94, 228, 213;
+  --effect-rgb-soft: 150, 245, 235;
+  --effect-rgb-deep: 20, 100, 105;
+
+  --canvas-stroke: rgba(230, 237, 248, 0.08);
+  --canvas-stroke-strong: rgba(94, 228, 213, 0.22);
+
+  --success: #34d399;
+  --success-rgb: 52, 211, 153;
+  --nav-fade-rgb: 8, 12, 20;
+
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: 'Syne', 'Inter', sans-serif;
+
+  --fs-xs: clamp(0.75rem, 0.8vw, 0.8rem);
+  --fs-sm: clamp(0.8rem, 0.85vw, 0.9rem);
+  --fs-base: clamp(0.875rem, 0.95vw, 1rem);
+  --fs-md: clamp(1rem, 1.15vw, 1.15rem);
+  --fs-lg: clamp(1.25rem, 1.8vw, 1.75rem);
+  --fs-xl: clamp(1.75rem, 3vw, 2.75rem);
+  --fs-2xl: clamp(2.5rem, 5vw, 4.5rem);
+  --fs-3xl: clamp(3.5rem, 7vw, 6.5rem);
+  --fs-display: clamp(4.5rem, 10vw, 10rem);
+  --fs-mega: clamp(6rem, 15vw, 16rem);
+
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 2rem;
+  --space-lg: 4rem;
+  --space-xl: 6rem;
+  --space-2xl: 10rem;
+  --space-3xl: 16rem;
+
+  --nav-h: 70px;
+  --container: 1400px;
+
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out: cubic-bezier(0.33, 1, 0.68, 1);
+  --ease-expo: cubic-bezier(0.87, 0, 0.13, 1);
+  --dur-fast: 0.3s;
+  --dur-mid: 0.6s;
+  --dur-slow: 1s;
+
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+  --radius-pill: 100px;
+
+  /* Z-index scale */
+  --z-base: 1;
+  --z-ambient: 0;
+  --z-content: 10;
+  --z-nav: 100;
+  --z-mobile-menu: 200;
+  --z-overlay: 300;
+  --z-particles: 650;
+  --z-loader: 400;
+  --z-grain: 600;
+  --z-cursor: 700;
+
+  /* Shadows */
+  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.25);
+  --shadow-md: 0 8px 32px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.55);
+  --shadow-xl: 0 30px 80px rgba(0, 0, 0, 0.65);
+  --shadow-glow: 0 0 16px rgba(94, 228, 213, 0.18);
+  --shadow-glow-subtle: 0 0 12px rgba(94, 228, 213, 0.08);
+  --shadow-glow-strong: 0 0 24px rgba(94, 228, 213, 0.28);
+}

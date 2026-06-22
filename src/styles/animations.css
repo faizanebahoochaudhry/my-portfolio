@@ -1,0 +1,100 @@
+/* =========================================
+   ALL @keyframes — extracted from style.css
+   ========================================= */
+
+@keyframes pageEnter {
+  from { filter: blur(6px); opacity: 0; transform: scale(0.985); }
+  to   { filter: blur(0);   opacity: 1; transform: scale(1); }
+}
+
+@keyframes nav-bracket-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+@keyframes bounceDown {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(5px); }
+}
+
+@keyframes statusPulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
+@keyframes orbitPulse {
+  0%, 100% { opacity: 0.3; r: 2; }
+  50% { opacity: 0.7; r: 3.5; }
+}
+
+@keyframes gridFade {
+  0%, 100% { opacity: 0.15; }
+  50% { opacity: 0.45; }
+}
+
+@keyframes scrollPulse {
+  0% { transform: scaleY(0); transform-origin: top; }
+  50% { transform: scaleY(1); transform-origin: top; }
+  51% { transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}
+
+@keyframes projInfoIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes projInfoOut {
+  from { opacity: 1; transform: translateY(0); }
+  to   { opacity: 0; transform: translateY(8px); }
+}
+
+@keyframes projScrollBounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50%      { transform: translateX(-50%) translateY(4px); }
+}
+
+@keyframes fadeIn { to { opacity: 1; } }
+
+@keyframes aboutAsteriskSpin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes aboutOrbitPulse {
+  0%, 100% { opacity: 0.2; transform: scale(1); }
+  50% { opacity: 0.35; transform: scale(1.08); }
+}
+
+@keyframes aboutOrbitDot {
+  to { transform: translateX(-50%) rotate(360deg); transform-origin: 0 22px; }
+}
+
+@keyframes scrollPulse--about {
+  0%, 100% { opacity: 0.5; transform: translateY(0); }
+  50% { opacity: 0.2; transform: translateY(8px); }
+}
+
+@keyframes contactBlink {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+@keyframes holoShimmer {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes fadeInDeco {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes decoLineGrow {
+  from { height: 0; transform: translateY(-50%); }
+  to { height: 80px; transform: translateY(-50%); }
+}
+
