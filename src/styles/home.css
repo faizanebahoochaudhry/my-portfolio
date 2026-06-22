@@ -60,18 +60,45 @@
   position: relative;
   z-index: 1;
   width: 100%;
-  max-width: min(100%, 20ch);
+  max-width: 100%;
   box-sizing: border-box;
   padding: 0 var(--space-md);
-  visibility: hidden; /* hidden until JS builds char spans */
+  min-height: calc(2 * 0.9em);
 }
+
+.home-hero__title-fallback {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  visibility: hidden;
+  pointer-events: none;
+  user-select: none;
+}
+
+.home-hero__title-fallback .word {
+  display: block;
+  white-space: nowrap;
+  max-width: 100%;
+  margin-inline: auto;
+}
+
+.home-hero__title:not(.js-ready) {
+  visibility: hidden;
+}
+
 .home-hero__title.js-ready {
   visibility: visible;
+}
+
+.home-hero__title.js-ready .home-hero__title-fallback {
+  display: none;
 }
 
 .home-hero__title .word {
   display: block;
   white-space: nowrap;
+  max-width: 100%;
+  margin-inline: auto;
 }
 
 .home-hero__title .char {
@@ -104,6 +131,14 @@
   pointer-events: none;
   border-top: 1px solid var(--border);
   padding: 0.55rem 0 0.65rem;
+  background: linear-gradient(to top, rgba(var(--nav-fade-rgb), 0.55), transparent);
+  min-height: 2.35rem;
+}
+
+.tech-loop--placeholder {
+  opacity: 0;
+  pointer-events: none;
+  border-top: 1px solid var(--border);
   background: linear-gradient(to top, rgba(var(--nav-fade-rgb), 0.55), transparent);
 }
 
@@ -703,10 +738,11 @@ body.is-ready .home-hero__scroll-hint { opacity: 1; transition-delay: 3s; }
   }
 
   .home-hero__title {
-    font-size: clamp(2rem, 9.5vw, 3.75rem);
+    font-size: clamp(1.75rem, 7.5vw, 2.5rem);
     line-height: 0.9;
     max-width: 100%;
     padding: 0 var(--space-xs);
+    min-height: calc(2 * 0.9 * clamp(1.75rem, 7.5vw, 2.5rem));
   }
 
   .home-hero__footer {
@@ -715,6 +751,7 @@ body.is-ready .home-hero__scroll-hint { opacity: 1; transition-delay: 3s; }
     width: 100%;
     margin-top: 0;
     z-index: 2;
+    min-height: calc(5.35rem + env(safe-area-inset-bottom, 0px));
   }
 
   .home-hero__bottom {
@@ -815,7 +852,8 @@ body.is-ready .home-hero__scroll-hint { opacity: 1; transition-delay: 3s; }
   :root { --space-2xl: 4rem; }
 
   .home-hero__title {
-    font-size: clamp(1.85rem, 9vw, 3.25rem);
+    font-size: clamp(1.6rem, 7vw, 2.2rem);
+    min-height: calc(2 * 0.9 * clamp(1.6rem, 7vw, 2.2rem));
   }
 
   .home-hero__bottom {

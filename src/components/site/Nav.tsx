@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { site } from '@/data/site';
-import { ScrambleText } from '@/components/site/ScrambleText';
+import { AdaptiveText } from '@/components/site/AdaptiveText';
 
 export function Nav() {
   const pathname = usePathname();
@@ -53,12 +53,12 @@ export function Nav() {
     <header>
       <nav className="nav" aria-label="Main navigation">
         <Link href="/" className="nav__logo">
-          <ScrambleText scrambleTo={site.logoScrambleTo}>{`${site.shortName}.`}</ScrambleText>
+          <AdaptiveText scrambleTo={site.logoScrambleTo}>{`${site.shortName}.`}</AdaptiveText>
         </Link>
         <div className="nav__links">
           {site.nav.map((item) => (
             <Link key={item.href} href={item.href} className={linkClass(item.href)}>
-              <ScrambleText scrambleTo={item.hover}>{item.label}</ScrambleText>
+              <AdaptiveText scrambleTo={item.hover}>{item.label}</AdaptiveText>
             </Link>
           ))}
         </div>

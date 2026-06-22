@@ -121,17 +121,11 @@ export function initMagneticTitle(
   let fittedFontSize = 0;
 
   function computeFit() {
-    const prevFs = el.style.fontSize;
-    el.style.fontSize = '';
-    void el.offsetHeight;
-
     const cs = getComputedStyle(el);
     const padL = parseFloat(cs.paddingLeft);
     const padR = parseFloat(cs.paddingRight);
     const availW = el.offsetWidth - padL - padR;
     const baseFontSize = parseFloat(cs.fontSize);
-
-    el.style.fontSize = prevFs;
 
     if (availW <= 0 || baseFontSize <= 0) return;
 
@@ -175,7 +169,9 @@ export function initMagneticTitle(
 
     document.body.removeChild(clone);
     fittedFontSize = Math.max(16, Math.floor(minNeeded));
-    el.style.fontSize = fittedFontSize + 'px';
+    if (Math.abs(fittedFontSize - baseFontSize) > 0.5) {
+      el.style.fontSize = fittedFontSize + 'px';
+    }
   }
 
   function applyFit() {
@@ -185,6 +181,9 @@ export function initMagneticTitle(
   }
 
   function buildChars(text: string) {
+    const fallback = el.querySelector('.home-hero__title-fallback');
+    if (fallback) fallback.remove();
+
     const wordArr = text.split(' ');
     let html = '';
     wordArr.forEach((word, wi) => {
@@ -220,24 +219,25 @@ export function initMagneticTitle(
     const built = buildChars(text);
     chars = built.chars;
     states = built.states;
-    chars.forEach(c => c.classList.add('is-in'));
     applyFit();
-    el.classList.add('js-ready'); // reveal title now that chars are built
 
     if (animate) {
       magneticReady = false;
-      chars.forEach(c => c.classList.remove('is-in'));
-      chars.forEach((c, i) => {
-        setTimeout(() => c.classList.add('is-in'), i * 40);
+      el.classList.add('js-ready', 'is-fitted');
+      requestAnimationFrame(() => {
+        chars.forEach((c, i) => {
+          setTimeout(() => c.classList.add('is-in'), i * 40);
+        });
+        setTimeout(() => {
+          magneticReady = true;
+          el.classList.add('physics-active');
+          measureRestPositions();
+        }, chars.length * 40 + 500);
       });
-      setTimeout(() => {
-        magneticReady = true;
-        el.classList.add('physics-active');
-        measureRestPositions();
-      }, chars.length * 40 + 500);
     } else {
+      chars.forEach((c) => c.classList.add('is-in'));
       magneticReady = true;
-      el.classList.add('physics-active');
+      el.classList.add('js-ready', 'is-fitted', 'physics-active');
       requestAnimationFrame(() => measureRestPositions());
     }
   }

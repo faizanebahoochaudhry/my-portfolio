@@ -1,31 +1,80 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import dynamic from 'next/dynamic';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { site } from '@/data/site';
-import { ScrambleText } from '@/components/site/ScrambleText';
-import { TechLogoLoop } from '@/components/site/TechLogoLoop';
+import { AdaptiveText } from '@/components/site/AdaptiveText';
 import { initMagneticTitle } from '@/lib/magnetic-title';
+import { cancelWhenIdle, runWhenIdle } from '@/lib/idle';
+
+const TechLogoLoop = dynamic(
+  () => import('@/components/site/TechLogoLoop').then((mod) => mod.TechLogoLoop),
+  { ssr: false },
+);
+
+function fitHiddenTitle(el: HTMLElement) {
+  const words = el.querySelectorAll<HTMLElement>('.home-hero__title-fallback .word');
+  if (!words.length) return;
+
+  el.style.fontSize = '';
+  const cs = getComputedStyle(el);
+  const padL = parseFloat(cs.paddingLeft);
+  const padR = parseFloat(cs.paddingRight);
+  const availW = el.clientWidth - padL - padR;
+  const baseFontSize = parseFloat(cs.fontSize);
+  if (availW <= 0 || baseFontSize <= 0) return;
+
+  let maxWordW = 0;
+  words.forEach((word) => {
+    maxWordW = Math.max(maxWordW, word.scrollWidth);
+  });
+
+  if (maxWordW > 0 && availW > 0) {
+    const next = Math.max(16, Math.floor(baseFontSize * (availW / maxWordW) * 0.95));
+    if (next <= baseFontSize) {
+      el.style.fontSize = `${next}px`;
+    }
+  }
+}
 
 export function HomeHero() {
   const titleRef = useRef<HTMLHeadingElement>(null);
+  const [showTechLoop, setShowTechLoop] = useState(false);
 
   useEffect(() => {
     document.body.classList.add('home-page');
     return () => document.body.classList.remove('home-page');
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const el = titleRef.current;
     if (!el) return;
 
     const section = el.closest('.home-hero') as HTMLElement | null;
-    return initMagneticTitle(el, section, {
+
+    fitHiddenTitle(el);
+    document.fonts?.ready.then(() => fitHiddenTitle(el));
+
+    const onResize = () => fitHiddenTitle(el);
+    window.addEventListener('resize', onResize);
+
+    const cleanup = initMagneticTitle(el, section, {
       text: site.heroTitle,
       phrases: site.heroFallPhrases.map((phrase) => ({
         ...phrase,
         map: [...phrase.map],
       })),
     });
+
+    return () => {
+      window.removeEventListener('resize', onResize);
+      cleanup();
+    };
+  }, []);
+
+  useEffect(() => {
+    const idleId = runWhenIdle(() => setShowTechLoop(true), 2200);
+    return () => cancelWhenIdle(idleId);
   }, []);
 
   return (
@@ -36,8 +85,15 @@ export function HomeHero() {
           ref={titleRef}
           data-magnetic-text
           aria-label={site.heroTitle}
-        />
-
+        >
+          <span className="home-hero__title-fallback" aria-hidden="true">
+            {site.heroTitleLines.map((line) => (
+              <span key={line} className="word">
+                {line}
+              </span>
+            ))}
+          </span>
+        </h1>
       </div>
 
       <div className="home-hero__deco-top" aria-hidden="true">
@@ -87,18 +143,18 @@ export function HomeHero() {
       <div className="home-hero__footer">
         <div className="home-hero__bottom">
           <div className="home-hero__info">
-            <ScrambleText>{site.name}</ScrambleText>
+            <AdaptiveText>{site.name}</AdaptiveText>
             <span className="home-hero__sep">·</span>
-            <ScrambleText>{site.location}</ScrambleText>
+            <AdaptiveText>{site.location}</AdaptiveText>
           </div>
 
           <div className="home-hero__contact">
             <a href={`mailto:${site.email}`} className="home-hero__link">
-              <ScrambleText>{site.email}</ScrambleText>
+              <AdaptiveText>{site.email}</AdaptiveText>
             </a>
             <span className="home-hero__sep">·</span>
             <a href={site.phoneHref} className="home-hero__link">
-              <ScrambleText>{site.phone}</ScrambleText>
+              <AdaptiveText>{site.phone}</AdaptiveText>
             </a>
           </div>
 
@@ -112,18 +168,18 @@ export function HomeHero() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <ScrambleText>{social.label}</ScrambleText>
+                  <AdaptiveText>{social.label}</AdaptiveText>
                 </a>
               </span>
             ))}
           </div>
 
           <span className="home-hero__copy">
-            <ScrambleText>{`© ${site.year}`}</ScrambleText>
+            <AdaptiveText>{`© ${site.year}`}</AdaptiveText>
           </span>
         </div>
 
-        <TechLogoLoop />
+        {showTechLoop ? <TechLogoLoop /> : <div className="tech-loop tech-loop--placeholder" aria-hidden="true" />}
       </div>
     </section>
   );

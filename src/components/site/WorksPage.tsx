@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { Fragment, memo, useLayoutEffect, useRef } from 'react';
 import { site } from '@/data/site';
 import { initWorkInteractions } from '@/lib/work-interactions';
@@ -189,8 +190,15 @@ export function WorksPage() {
             data-index={index}
             data-sort-year={project.sortYear}
           >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={project.image} alt={project.name} loading="lazy" decoding="async" />
+            <Image
+              src={project.image}
+              alt={project.name}
+              fill
+              sizes="(max-width: 768px) 92vw, 50vw"
+              quality={80}
+              priority={index === 0}
+              loading={index === 0 ? 'eager' : 'lazy'}
+            />
           </div>
         ))}
       </div>
