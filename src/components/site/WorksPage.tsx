@@ -84,27 +84,37 @@ export function WorksPage() {
         <div className="proj__line" />
       </div>
 
-      <div className="proj__deco-top" aria-hidden="true">
-        <div className="proj__sort">
-          <span className="proj__sort-label">Sort by</span>
-          <button type="button" className="proj__sort-btn is-active" data-sort="relevance">
-            Relevance
-          </button>
-          <span className="proj__sort-sep">&middot;</span>
-          <button type="button" className="proj__sort-btn" data-sort="date-desc">
-            Date &darr;
-          </button>
-          <span className="proj__sort-sep">&middot;</span>
-          <button type="button" className="proj__sort-btn" data-sort="date-asc">
-            Date &uarr;
+      <div className="proj__hud">
+        <div className="proj__counter">
+          <div className="proj__counter-num">
+            <span className="proj__counter-current">01</span>
+          </div>
+          <span className="proj__counter-sep">/</span>
+          <span className="proj__counter-total">{total}</span>
+        </div>
+
+        <div className="proj__deco-top" aria-hidden="true">
+          <div className="proj__sort">
+            <span className="proj__sort-label">Sort by</span>
+            <button type="button" className="proj__sort-btn is-active" data-sort="relevance">
+              Relevance
+            </button>
+            <span className="proj__sort-sep">&middot;</span>
+            <button type="button" className="proj__sort-btn" data-sort="date-desc">
+              Date &darr;
+            </button>
+            <span className="proj__sort-sep">&middot;</span>
+            <button type="button" className="proj__sort-btn" data-sort="date-asc">
+              Date &uarr;
+            </button>
+          </div>
+          <div className="proj__dash-line" />
+          <button type="button" className="proj__view-toggle" aria-label="Switch view">
+            <span className="proj__view-opt proj__view-opt--slider is-active">Slider</span>
+            <span className="proj__view-sep">·</span>
+            <span className="proj__view-opt proj__view-opt--list">List</span>
           </button>
         </div>
-        <div className="proj__dash-line" />
-        <button type="button" className="proj__view-toggle" aria-label="Switch view">
-          <span className="proj__view-opt proj__view-opt--slider is-active">Slider</span>
-          <span className="proj__view-sep">·</span>
-          <span className="proj__view-opt proj__view-opt--list">List</span>
-        </button>
       </div>
 
       <div className="proj__deco-corners" aria-hidden="true">
@@ -141,24 +151,21 @@ export function WorksPage() {
         ))}
       </div>
 
-      <div className="proj__counter">
-        <div className="proj__counter-num">
-          <span className="proj__counter-current">01</span>
-        </div>
-        <span className="proj__counter-sep">/</span>
-        <span className="proj__counter-total">{total}</span>
-      </div>
-
       <div className="proj__list">
         <div className="proj__list-img-preview" />
 
         <table className="proj__list-table">
           <tbody>
-            {site.projects.map((project, index) => (
+            {site.projects.map((project, index) => {
+              const href =
+                'url' in project && project.url ? project.url : `#${project.slug}`;
+
+              return (
               <tr
                 key={project.slug}
                 className="proj__list-row"
                 data-index={index}
+                data-href={href}
                 data-img={project.image}
                 data-year={project.sortYear}
               >
@@ -168,7 +175,8 @@ export function WorksPage() {
                 <td className="proj__list-role">{project.role}</td>
                 <td className="proj__list-year">{project.year}</td>
               </tr>
-            ))}
+              );
+            })}
           </tbody>
         </table>
       </div>
