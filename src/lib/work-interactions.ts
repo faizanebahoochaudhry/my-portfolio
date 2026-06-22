@@ -735,10 +735,7 @@ export function initWorkInteractions(root) {
 
       track(row, 'click', function () {
         if (!isListMode) return;
-        var idx = parseInt(row.getAttribute('data-index'), 10);
-        var link = links[idx];
-        if (!link) return;
-        var href = link.getAttribute('href');
+        var href = row.getAttribute('data-href');
         if (!href || href.charAt(0) === '#') return;
         window.open(href, '_blank', 'noopener,noreferrer');
       });
