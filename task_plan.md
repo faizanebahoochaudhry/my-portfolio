@@ -4,22 +4,22 @@
 Establish a two-repository Git and deployment system for the portfolio website: a private development repository (`portfolio.git`) and a public showcase repository (`my-portfolio.git`), keeping planning documents, credentials, and development-only details private.
 
 ## Current Phase
-Phase 1: Discovery & Local Git Setup
+Phase 2: Remote Configuration & Private Push
 
 ## Phases
 
 ### Phase 1: Discovery & Local Git Setup
 - [x] Inspect existing files in `Website/`
-- [ ] Initialize local Git repository in `Website/`
-- [ ] Set up `.gitignore` for private files (`.env`, planning files, node_modules)
-- [ ] Commit initial repository state on a `main` branch
-- [ ] Create `development` branch
-- **Status:** in_progress
+- [x] Initialize local Git repository in `Website/`
+- [x] Set up `.gitignore` for private files (`.env`, planning files, node_modules)
+- [x] Commit initial repository state on a `main` branch
+- [x] Create `development` branch
+- **Status:** complete
 
 ### Phase 2: Remote Configuration & Private Push
 - [ ] Set private remote: `https://github.com/faizanebahoochaudhry/portfolio.git`
 - [ ] Push local branches (`main` and `development`) to private repository
-- - **Status:** pending
+- - **Status:** in_progress
 
 ### Phase 3: Public Repository Setup & Prep
 - [ ] Create `my-portfolio` sibling folder for clean public-facing version
