@@ -638,7 +638,9 @@ export function initWorkInteractions(root) {
 
   /* ---------- List View Toggle ---------- */
   function toCssUrl(src) {
-    return 'url("' + encodeURI(src) + '")';
+    var optimized =
+      '/_next/image?url=' + encodeURIComponent(src) + '&w=640&q=75';
+    return 'url("' + optimized + '")';
   }
 
   function initListView() {
