@@ -3,11 +3,11 @@ export function runWhenIdle(callback: () => void, timeout = 2000): number {
     return 0;
   }
 
-  if (typeof window.requestIdleCallback === 'function') {
-    return window.requestIdleCallback(callback, { timeout });
+  if ('requestIdleCallback' in window) {
+    return (window as any).requestIdleCallback(callback, { timeout });
   }
 
-  return window.setTimeout(callback, 1);
+  return setTimeout(callback, 1) as unknown as number;
 }
 
 export function cancelWhenIdle(id: number): void {
@@ -15,10 +15,10 @@ export function cancelWhenIdle(id: number): void {
     return;
   }
 
-  if (typeof window.cancelIdleCallback === 'function') {
-    window.cancelIdleCallback(id);
+  if ('cancelIdleCallback' in window) {
+    (window as any).cancelIdleCallback(id);
     return;
   }
 
-  window.clearTimeout(id);
+  clearTimeout(id);
 }
